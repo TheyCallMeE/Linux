@@ -1,0 +1,35 @@
+/* This is the example file for learning protobuf */
+
+syntax = "proto2";
+
+// Prevent naming conflicts between differnt projects
+package tutorial;
+
+// Message definition, aggregate containing a set of typed fields
+message Person {
+  // The "optional" modifier is for if the field may or may not be set, default value if latter
+  // The "required" modifier means a value must be provided otherwise it is "uninitialized"
+  // Be very careful about marking fields as required (proto3 does not even support them
+  optional string name = 1;
+  optional int32 id = 2;
+  optional string email = 3;
+
+  enum PhoneType {
+    MOBILE = 0;
+    HOME = 1;
+    WORK = 2;
+  }
+
+  // Can define nested messages
+  message PhoneNumber {
+    optional string number = 1;
+    optional PhoneType type = 2 [default = HOME];
+  }
+
+  // Field may be repeated any number of times (including zero) with "repeated" modifier
+  repeated PhoneNumber phones = 4;
+}
+
+message AddressBook {
+  repeated Person people = 1;
+}

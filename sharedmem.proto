@@ -1,0 +1,23 @@
+syntax = "proto2";
+
+// Preventing naming conflicts
+package shmmsg;
+
+message Client {
+  enum ClientType {
+    WRITER = 0;
+    READER = 1;
+  }
+
+  optional ClientType client = 1 [default = READER];
+  optional string msg = 2;
+}
+
+message Server {
+  enum Response {
+    SUCCESS = 0;
+    ERROR = 1;
+  }
+
+  optional Response response = 1 [default = ERROR];
+}
